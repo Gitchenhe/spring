@@ -1,0 +1,27 @@
+1. PointCut
+    ClassFilter getClassFilter();
+    MethodMatcher getMethodMatcher();
+2. AOP概念
+    Aspect: 切面,例如事务管理器
+    Join Point: 连接点,在Spring AOP中,一个切入点代表一个方法被执行
+    Advice: 通知, 在一个切面上的切入点上,执行的特定操作.有around,before,after之分(around,before,after是相对于join point的).
+    Point cut: 切入点,需要指定执行的特定方法(execution('* x.y.test(..)')). 匹配连接点. Advice与pointcut表达式和它上面的连接点密切相关.
+    Introduction:
+    Target Object: 被一个或多个切面通知的对象,通常是代理对象.
+    AOP Proxy: 为了遵循切面原则,被Spring AOP创建的对象. 动态代理有JDK dynamic proxy, CGLIB proxy
+    Weaving:
+
+3. Spring AOP的能力和目标
+    Spring AOP采用纯JAVA实现,所以它不需要特殊的编译过程,AOP不需要控制class loader的层次结构,因此它适合servlet 容器或应用服务器.
+    Spring AOP目前只适合在join point执行特定方法,field拦截暂时没有实现
+
+    Spring AOP 是一种编程规范,旨在通过允许横切关注点的分离,提高模块化.AOP提供aspect来将跨越对象的join point模块化,这里有两个流行的框架Spring AOP和AspectJ
+    Spring AOP默认使用标准的JDK动态代理作为 AOP Proxy
+    Spring AOP不同于其他AOP框架,Spring AOP的目的并不是为了提供最完整的AOP实现,而是为了要帮助企业解决应用中的常见问题,提供一个AOP实现与Spring IOC之间的紧密集成.
+    如果是在Spring beans之上建立切面,Spring AOP是完全可以的,但是如果实在普通的JAVA对象上建立切面,AOP是不支持的,AspectJ可以.
+    Spring项目中可以通过如下方式更换默认的AOP框架
+        @Configuration
+        @EnableAspectJAutoProxy
+        public class AppConfig { }
+     或
+        <aop:aspectj-autoproxy/>

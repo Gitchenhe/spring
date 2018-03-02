@@ -1,14 +1,13 @@
 package com.example.demo;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.springboot.demo.DemoRequest;
-import com.springboot.demo.DemoResponse;
+import com.springboot.demo.entity.DemoRequest;
+import com.springboot.demo.entity.DemoResponse;
+import com.springboot.demo.service.HelloService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,6 +20,9 @@ public class DemoApplicationTests {
 
 	@Autowired
 	RestTemplate restTemplate;
+
+	@Autowired
+	HelloService helloService;
 
 	@Test
 	public void contextLoads() {

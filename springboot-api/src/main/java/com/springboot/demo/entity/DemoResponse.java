@@ -1,4 +1,4 @@
-package com.springboot.demo;
+package com.springboot.demo.entity;
 
 /**
  * Created by chenhe on 2018/2/23.
