@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myShiroRealm"/>
+        <property name="cacheManager" ref="shiroCacheManger"/>
+    </bean>
+    <bean id="myShiroRealm" class="com.example.demo.shiro.MyShiroRealm">
+        <property name="cacheManager" ref="shiroCacheManger"/>
+    </bean>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 没有登录的用户请求,自动跳转到登录页面(可选) -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 登录成功后的跳转页面(可选) -->
+        <property name="successUrl" value="/success"/>
+        <!-- 没有权限默认跳转的页面 -->
+        <property name="unauthorizedUrl" value="/error"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /dologin/** = anon
+                /logout/** = anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- 用户授权信息Cache -->
+    <bean id="shiroCacheManger" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+</beans>
