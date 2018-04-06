@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by chenhe on 2018/3/2.
  */
 @Controller
+@RequestMapping("shiro")
 public class ShoriController {
 
     Logger logger = LoggerFactory.getLogger(ShoriController.class);

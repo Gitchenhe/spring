@@ -1,0 +1,14 @@
+	1. 官网下载 http://zookeeper.apache.org/
+	2. 解压 tar -xvf zookeeper…
+	3. 启动zookeeper
+	4. 修改kafka解压后的  config文件夹下的server.properties,主要修改zookeeper host和port
+	5. 启动kafka Zookeeper-server-start.sh ../config/server.properties
+	6. 创建topic (test_topic)
+	/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test_topic
+	7. 查看已经创建的topic
+	/kafka-topics.sh --list --zookeeper localhost:2181
+	8. 创建一个消费者,执行完不要退出,可用来显示接收到的消息
+	/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test_topic --from-beginning
+	9. 创建消息生产者
+	/kafka-console-producer.sh --broker-list localhost:9092 --topic test_topic
+	10. 命令执行完成后会进入一个编辑器模式,可以发送消息

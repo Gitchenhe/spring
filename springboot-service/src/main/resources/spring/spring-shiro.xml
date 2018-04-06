@@ -22,7 +22,7 @@
             <value>
                 /dologin/** = anon
                 /logout/** = anon
-                /** = authc
+                /shiro/** = authc
             </value>
         </property>
     </bean>
